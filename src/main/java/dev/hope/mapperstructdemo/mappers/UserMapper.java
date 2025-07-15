@@ -1,13 +1,15 @@
 package dev.hope.mapperstructdemo.mappers;
 
 import dev.hope.mapperstructdemo.models.User;
-import dev.hope.mapperstructdemo.records.UserDTO;
+import dev.hope.mapperstructdemo.dtos.UserDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    UserMapper userMapperInstance= Mappers.getMapper(UserMapper.class);
-    UserDTO userToUserDTO(User user);
-    User userDtoToUser(UserDTO userDTO);
+    @Mapping(target = "userId", source = "id")
+    UserDTO userToUserDTO(User entity);
+
+    @Mapping(target = "id", source = "userId")
+    User useDTOtoUser(UserDTO dto);
 }
